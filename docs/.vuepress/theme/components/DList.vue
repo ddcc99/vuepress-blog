@@ -3,17 +3,19 @@
         <h1>{{$page.title}}</h1>
 
         <div class="article-list">
-            <div class="article-info" v-for="item in articleList" :key="item.key">
+            <div class="article-info" v-for="item in articleList" :key="item.key" :style="{borderImage: `linear-gradient(to right, ${getRendomColor()}, ${getRendomColor()}) 1`}">
                 <h2>
                     <router-link :to="item.path">{{item.frontmatter.title}}</router-link>
                 </h2>
 
                 <p class="time-container">
                     <i class="fa fa-calendar" aria-hidden="true"></i>
-                    <span>{{formatPostTime(item)}}</span>
+                    <span>{{item.frontmatter.postTime?.substr?.(0, 10)}}</span>
                 </p>
 
                 <Content :pageKey="item.key" slot-key="abstract" />
+
+                <d-article-info :categories="item.frontmatter.categories" :tags="item.frontmatter.tags"></d-article-info>
             </div>
         </div>
     </div>
@@ -31,15 +33,7 @@ export default {
 
     computed: {
         articleList() {
-            console.log(this.$site.pages.filter(item => {
-                console.log(item.frontmatter.categories)
-
-                return item.frontmatter.categories?.some?.(val => {
-                    console.log(val, this.$page.title, val === this.$page.title)
-                    return val === this.$page.title
-                })
-            }))
-            return this.$site.pages.filter(item => item.frontmatter.categories?.some?.(val => val === this.$page.title))
+            return this.$articlePages.filter(item => item.frontmatter.categories?.some?.(val => val === this.$page.title))
         }
     },
 
@@ -50,9 +44,9 @@ export default {
     },
 
     methods: {
-        formatPostTime(item) {
-            return item.frontmatter.postTime?.substr(0, 10)
-        },
+        getRendomColor() {
+            return `#${Math.random().toString(16).substring(2, 8)}`
+        }
     },
 };
 </script>
@@ -111,14 +105,22 @@ export default {
             padding: 1rem;
             border-radius: .25rem;
             transition: box-shadow .2s ease-in-out;
+            border-bottom: .0625rem solid;
 
             &:hover {
                 box-shadow: 0 0 1rem .0625rem #cfcfcf;
+                border-image: unset !important;
+                border-color: #fff;
             }
 
             .time-container {
                 font-size: .875rem;
                 text-align: center;
+            }
+
+            .d-article-info {
+                justify-content: space-between;
+                padding: 1.25rem .5rem 0;
             }
         }
     }

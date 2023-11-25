@@ -55,7 +55,6 @@ export default {
 
     mounted() {
         window.onclick = (e) => {
-            console.log(e, this.hasOpenPopup)
             if (!this.hasOpenPopup) {
                 return
             }
@@ -92,6 +91,7 @@ export default {
     inset: 0;
     height: 3.75rem;
     z-index: 123;
+    user-select: none;
 
     &:not(:has(.d-home)) {
         background-color: #101010;
@@ -157,6 +157,7 @@ export default {
                 word-wrap: break-word;
 
                 .option-item {
+                    margin: 0;
                     padding: .3125rem 1rem;
                     line-height: 1.375rem;
                     text-align: center;

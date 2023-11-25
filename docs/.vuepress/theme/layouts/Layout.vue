@@ -1,12 +1,20 @@
 <template>
     <div class="theme-container">
+        <!-- 头部 -->
         <d-header></d-header>
 
+        <!-- 主页遮罩 -->
         <SplitMask v-if="showMask" @hiddenMask="showMask = false" />
+
+        <!-- 主页 -->
         <Home v-if="$page.frontmatter.home" @showMask="showMask = true" />
 
         <Wrapper v-else>
-            <List />
+            <!-- 列表页 -->
+            <List v-if="$page.frontmatter.list" />
+            
+            <!-- 文章页 -->
+            <Article v-else />
         </Wrapper>
     </div>
 </template>
@@ -16,6 +24,7 @@ import SplitMask from '../components/DSplitFullMask.vue'
 import Home from '../components/DHome.vue'
 import Wrapper from '../components/DWrapper.vue'
 import List from '../components/DList.vue'
+import Article from '../components/DArticle.vue'
 
 export default {
     name: 'Layout',
@@ -24,6 +33,7 @@ export default {
         Home,
         Wrapper,
         List,
+        Article,
     },
 
     data() {
