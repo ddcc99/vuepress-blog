@@ -18,7 +18,7 @@ git commit -m 'commit blog pages'
 
 # 如果发布到 https://<USERNAME>.github.io
 # git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git master
-git push -f git@github.com:eddievandeer/eddievandeer.github.io.git master:myblog
+git push -f git@github.com:ddcc99/blog.git master:blog-page
 
 # 如果发布到 https://<USERNAME>.github.io/<REPO>
 # git push -f git@github.com:<USERNAME>/<REPO>.git master:gh-pages
