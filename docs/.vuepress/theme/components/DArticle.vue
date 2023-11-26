@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import PrevNext from '../components/DPrevNext.vue'
+import PrevNext from './DPrevNext.vue'
 
 export default {
     name: 'dArticle',

@@ -1,7 +1,7 @@
 <template>
     <div class="d-prev-next">
         <div class="prev">
-            <template v-if="!isFirstPage">
+            <template v-if="!isFirstPage && prevPage">
                 <router-link :to="prevPage.path">
                     <i class="fa fa-chevron-left" aria-hidden="true"></i>
                     <span>{{prevPage.frontmatter.title}}</span>
@@ -10,7 +10,7 @@
         </div>
 
         <div class="next">
-            <template v-if="!isLastPage">
+            <template v-if="!isLastPage && nextPage">
                 <router-link :to="nextPage.path">
                     <span>{{nextPage.frontmatter.title}}</span>
                     <i class="fa fa-chevron-right" aria-hidden="true"></i>

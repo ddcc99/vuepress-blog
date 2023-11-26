@@ -9,13 +9,17 @@
         <!-- 主页 -->
         <Home v-if="$page.frontmatter.home" @showMask="showMask = true" />
 
-        <Wrapper v-else>
+        <Wrapper v-else :isFold="isFold">
             <!-- 列表页 -->
             <List v-if="$page.frontmatter.list" />
             
             <!-- 文章页 -->
             <Article v-else />
         </Wrapper>
+
+        <Catalogue :isFold="isFold" v-if="$page.path.endsWith('html')" @toggleFold="toggleFold" />
+
+        <ToTop />
     </div>
 </template>
 
@@ -25,6 +29,8 @@ import Home from '../components/DHome.vue'
 import Wrapper from '../components/DWrapper.vue'
 import List from '../components/DList.vue'
 import Article from '../components/DArticle.vue'
+import ToTop from '../components/DToTop.vue'
+import Catalogue from '../components/DCatalogue.vue';
 
 export default {
     name: 'Layout',
@@ -34,11 +40,14 @@ export default {
         Wrapper,
         List,
         Article,
+        ToTop,
+        Catalogue,
     },
 
     data() {
         return {
             showMask: false,
+            isFold: true,
         };
     },
 
@@ -52,18 +61,27 @@ export default {
             if (width > 1920) {
                 width = 1920
             }
-            const fontSize = width / 120 + 'px'
+
+            this.remValue = width / 120
+            
+            const fontSize = this.remValue + 'px'
             html.style.fontSize = fontSize
+            console.log(this.remValue)
         }
         setFont()
 
         window.onresize = function () {
             setFont()
         }
+
+        this.isFold = !~~localStorage.getItem('is-fold')
     },
 
     methods: {
-        
+        toggleFold() {
+            this.isFold = !!~~localStorage.getItem('is-fold')
+            localStorage.setItem('is-fold', ~~!this.isFold)
+        }
     },
 };
 </script>
