@@ -44,7 +44,7 @@ export default {
             dom && dom.scrollIntoView({behavior: 'smooth', block: 'center'})
         },
         getClass() {
-            return ['fa', {[`fa-angle-double-${~~localStorage.getItem('is-fold') ? 'left' : 'right'}`]: true}]
+            return ['fa', {[`fa-angle-double-${!this.isFold ? 'left' : 'right'}`]: true}]
         }
     },
 };
